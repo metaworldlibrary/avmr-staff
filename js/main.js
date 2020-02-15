@@ -15,92 +15,30 @@ $(document).ready(function () {
 		$('.navbar-collapse').collapse('hide');
 	});
 
-	//Room search
-	$('#room_search').on('click', function(){
-		search_rooms($("#room_checkindate").val(), $("#room_checkoutdate").val(), $("#room_pax").val());
-	}); //room search end
-
-	//dynamic buttons click
-	$('#rooms-container').on('click', '.btn', function(){
-		room_id = event.target.id;
-		find_room_by_id(room_id, 1);
-	});//dynamic buttons click end
-
-	//send contact info to confirmation page
-	$('#signup-create').on('click', function(){
-		login = $("#signup-email").val();
-		password = $("#signup-password").val();
-		$("#confirm-firstname").val($("#signup-firstname").val());
-		$("#confirm-lastname").val($("#signup-lastname").val());
-		$("#confirm-email").val($("#signup-email").val());
-		$("#confirm-NoMobile").val($("#signup-NoMobile").val());
-		$("#confirm-NoLandline").val($("#signup-NoLandline").val());
-		$("#confirm-username").val($("#signup-username").val());
-		$('#main-content').carousel(7);
-		submit_mode = 1;
-	});//send contact info to confirmation page end
-
-	//Confirmation page
-	$('#confirm-create').on('click', function(){
-		$("#confirm-create").attr("disabled", true);
-		switch (submit_mode) {
-			case 1:
-				$.post("src/logout.php");
-				signup_confirm(submit_mode);
-				break;
-			default:
-				check_session(submit_mode);
-		}
-	});////Confirmation page
-
-	//Login from navbar
 	$("#form_send").click(function() { //When clicking "Sign in" in the login form.
 		user_login($("#login_username").val(), $("#login_password").val(), 6, 0);
-	}); //login from navbar end
+	});
 
-	//Login from booking
-	$("#form_send2").click(function() { //When clicking "Sign in" in the login form.
-		user_login($("#login_username2").val(), $("#login_password2").val(), 7, 0);
-	});//login from booking end
-
-	//rates click
-	$('#navbar-rooms').on('click', function(){
-		submit_mode = 1;
-		$("#book-title").text("CREATING RESERVATION");
-	});//rates click end
-
-	//Book button click
-	$('#navbar-rooms').on('click', function(){
-		submit_mode = 1;
-		$("#book-title").text("CREATING RESERVATION");
-	});//book button click end
-
-	//sign off from navbar
 	$('#navbar-sign-out').on('click', function(){
 		check_logout_ui();
 		clear_all(1);
 		$.post("src/logout.php");
-	});//sign off from navbar end
-
-	//sign off from booking
-	$('#sign-out2').on('click', function(){
-		check_logout_ui();
-		$.post("src/logout.php");
-	});//sign off from booking end
+	});
 
 	$('#navbar-dashboard').on('click', function(event) {
-		$('#dashboard-header').text("Edit reservations");
-		$('#dashboard-table-container').show();
-		$('#dashboard-account-section').hide();
-		$('#dashboard-info-container').siblings().hide();
-		submit_mode=2;
+		$('#dashboard-header').text('Edit reservations');
+		$('#dashboard-walkin-container').show().siblings().hide();
 		check_session(0);
 	});
 
 	$('#reservations-container').on('click', '.del-reservation', function(){
 		reservationID = $(this).parent().siblings(":first").text();
-		alert(reservationID);
 		reservation_delete(reservationID);
+	});
+
+	$('#reservations-container').on('click', '.edit-reservation', function(){
+		reservationID = $(this).parent().siblings(":first").text();
+		find_room_by_id(reservationID,1);
 	});
 
 	$('#dashboard-add-room').on('click', function(){
@@ -110,9 +48,7 @@ $(document).ready(function () {
 
 	$('#dashboard-walk-in').on('click', function(event) {
 		$('#dashboard-header').text("Walk-in Management");
-		$('#dashboard-table-container').show();
-		$('#dashboard-account-section').hide();
-		$('#dashboard-info-container').siblings().hide();
+		$('#dashboard-walkin-container').show().siblings().hide();
 		submit_mode = 2;
 		check_session(0);
 	});
@@ -120,45 +56,12 @@ $(document).ready(function () {
 	$('#dashboard-cancel-reservation').on('click', function(event) {
 		$('#dashboard-header').text("Cancel reservations");
 		$('#dashboard-table-container').show();
-		$('#dashboard-account-section').hide();
-		submit_mode=3;
 		check_session(submit_mode);
 	});
 
-	$('#dashboard-edit-info').on('click', function(event) {
-		$('#dashboard-header').text("Edit personal information");
-		$('#dashboard-table-container').hide();
-		$('#dashboard-account-section').show();
-		$("#dashboard-info-container").show().siblings().hide();
-	});
-
-	$('#dashboard-edit-username').on('click', function(event) {
-		$('#dashboard-header').text("Edit username and email");
-		$('#dashboard-table-container').hide();
-		$('#dashboard-account-section').show();
-		$("#dashboard-credentials-container").show().siblings().hide();
-	});
-
-	$('#dashboard-edit-password').on('click', function(event) {
-		$('#dashboard-header').text("Edit password");
-		$('#dashboard-table-container').hide();
-		$('#dashboard-account-section').show();
-		$("#dashboard-password-container").show().siblings().hide();
-	});
-
-	$('#dashboard-info-update').on('click', function(event) {
-		event.preventDefault();
-		check_session(4);
-	});
-
-	$('#dashboard-credentials-update').on('click', function(event) {
-		event.preventDefault();
-		check_session(5);
-	});
-
-	$('#dashboard-password-update').on('click', function(event) {
-		event.preventDefault();
-		check_session(6);
+	$('#dashboard-billing').on('click', function(event) {
+		fill_billing_list();
+		$("#dashboard-billing-container").show().siblings().hide();
 	});
 
 	function update_info(userID, name, lastname, landline, mobile){
@@ -321,14 +224,7 @@ $(document).ready(function () {
 		$('#member-area').show();
 		$('#login-form').hide();
 		$('#navbar-sign-in').hide();
-		$('#signup-container').hide();
-		$('#signup-or').hide();
 		$("#navbar-sign-in-label").text("Welcome, " + myCallback.name + " " + myCallback.last_name);
-		$('#login-contact-label').text('RE-ENTER PASSWORD')
-		$('#login-contact-label2').text('Current user: ' + myCallback.name + " " + myCallback.last_name);
-		$('#login_username2').attr("disabled", true);
-		$('#login_username2').val(myCallback.email);
-		$('#sign-out2').show();
 	}//login ui check end
 
 	//logout ui check
@@ -535,6 +431,26 @@ $(document).ready(function () {
 		});
 	}//fill reservation tables end
 
+	function fill_billing_list(){
+		$.post("src/billing_list.php",
+		function(data){
+			if (data!=0) {
+				$('#billing-container').empty();
+				var obj = jQuery.parseJSON(data);
+				$.each(obj, function(key, value) {
+					$('#billing-container').append(`
+					<tr>
+						<td id="">`+ value.ID + `</td>
+						<td id="">`+ value.name_last + ` ` + value.name_first + `</td>
+						<td id="">`+ value.date_in + `</td>
+						<td id="">`+ value.date_out + `</td>
+						<td id="">`+ value.Total + `</td>
+					</tr>`);
+				});
+			}
+		});
+	}//fill reservation tables end
+
 	//find room
 	function find_room_by_id(roomid, action, key){
 		$.post("src/find_room_id.php", //create a POST request
@@ -546,17 +462,18 @@ $(document).ready(function () {
 				var obj = jQuery.parseJSON(data);
 				switch (action) {
 					case 1: //filling confirmation page
-						$('#confirm-card-title').text(obj.room_name + " #" + obj.room_accommodation_num);
-						$('#confirm-card-description').text(obj.room_desc);
-						$('#confirm-card-price').text(obj.price);
-						$('#confirm-card-numpeople').text(obj.room_num);
-						$("#confirm-create").attr("disabled", false);
+						$('#dashboard-room-id').text(obj.ID);
+						$('#dashboard-room-type').val(obj.room_name);
+						$('#dashboard-num-people').text(obj.room_accommodation_num);
+						$('#dashboard-room-pricee').text(obj.price);
+						$('#dashboard-room-desc').text(obj.room_desc);
+						$("#dashboard-room-num").text(obj.room_num);
 						break;
 					case 2://Filling dashboard reservations
 						$('#reservation-room-name-'+key).text(obj.room_name + " #" + obj.room_accommodation_num);
 						$('#reservation-num-people-'+key).text(obj.room_num);
 						$('#reservation-price-'+key).text(obj.price);
-						break
+						break;
 				}
 			}
 			catch (err) {

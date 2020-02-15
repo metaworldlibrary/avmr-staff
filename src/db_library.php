@@ -209,4 +209,19 @@ function reservation_list() {
   $row= $result->fetch_all(MYSQLI_ASSOC);
   return $row;
 }
+
+function billing_list() {
+	//Getting the connection from above
+	global $mysqli;
+	//preparing the query and executing the query, first line is the template and the ? will be replaced
+	$stmt = $mysqli->prepare ("SELECT reservationqueue.ID, guestinfo.name_last, guestinfo.name_first, reservationqueue.date_in, reservationqueue.date_out, SUM(accommodationinfo.price) as Total FROM reservationqueue INNER JOIN accommodationinfo ON (reservationqueue.room_id=accommodationinfo.ID) INNER JOIN guestinfo on (reservationqueue.guest_id=guestinfo.ID) GROUP BY reservationqueue.guest_id ORDER BY reservationqueue.ID");
+	$stmt->execute(); //executing the query
+
+  $result = $stmt->get_result(); //getting results
+	if ($result->num_rows === 0) //no results means not registered
+    exit("no_reservation"); //exit the script and sends a message
+
+  $row= $result->fetch_all(MYSQLI_ASSOC);
+  return $row;
+}
 ?>
