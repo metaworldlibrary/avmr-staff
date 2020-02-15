@@ -73,7 +73,7 @@ if(session_id() == ''){
 
                 <ul class="nav flex-column">
                   <li class="nav-item">
-                    <a class="nav-link active mt-2" href="#" id="dashboard-edit-reservation">
+                    <a class="nav-link active mt-2" href="#" id="dashboard-walk-in">
                       <span data-feather="file-text"></span>
                       Walk-in <span class="sr-only">(current)</span>
                     </a>
