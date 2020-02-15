@@ -75,19 +75,31 @@ if(session_id() == ''){
                   <li class="nav-item">
                     <a class="nav-link active mt-2" href="#" id="dashboard-edit-reservation">
                       <span data-feather="file-text"></span>
-                      Edit reservations <span class="sr-only">(current)</span>
+                      Walk-in <span class="sr-only">(current)</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#" id="dashboard-add-room">
                       <span data-feather="file-text"></span>
-                      Add room
+                      Add reservation
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" id="dashboard-cancel-reservation">
+                    <a class="nav-link" href="#" id="dashboard-edit_room">
                       <span data-feather="file-text"></span>
-                      Cancel reservation
+                      Edit rooms
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" id="dashboard-reports">
+                      <span data-feather="file-text"></span>
+                      Reports
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" id="dashboard-billing">
+                      <span data-feather="file-text"></span>
+                      Billing
                     </a>
                   </li>
                 </ul>
@@ -106,12 +118,6 @@ if(session_id() == ''){
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" id="dashboard-edit-username">
-                      <span data-feather="file-text"></span>
-                      Email and username
-                    </a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="#" id=dashboard-edit-password>
                       <span data-feather="file-text"></span>
                       Password
@@ -127,17 +133,19 @@ if(session_id() == ''){
               </div>
 
               <h2 id="dashboard-header">Edit reservations</h2>
-              <div class="table-responsive" id="dashboard-table-container">
+              <div class="table-responsive" id="dashboard-walkin-container">
                 <table class="table table-striped table-sm" id="reservation-table">
                   <thead>
                     <tr>
-                      <th>Reservation ID</th>
+                      <th>ID</th>
                       <th>Room</th>
-                      <th>No. People</th>
+                      <th>Guest</th>
+                      <th>No.People</th>
                       <th>Price</th>
                       <th>Date-In</th>
                       <th>Date-out</th>
                       <th>Status</th>
+                      <th></th>
                       <th></th>
                     </tr>
                   </thead>

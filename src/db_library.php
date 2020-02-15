@@ -195,12 +195,11 @@ function find_user_by_id($id) {
   return $row;
 }
 
-function find_reservation_by_guest_id($id) {
+function reservation_list() {
 	//Getting the connection from above
 	global $mysqli;
 	//preparing the query and executing the query, first line is the template and the ? will be replaced
-	$stmt = $mysqli->prepare ("SELECT * FROM reservationqueue WHERE guest_id= ?");
-  $stmt->bind_param("i", $id);  //replacing the ? in the query, first param are the type (s for string)
+	$stmt = $mysqli->prepare ("SELECT * FROM reservationqueue");
 	$stmt->execute(); //executing the query
 
   $result = $stmt->get_result(); //getting results

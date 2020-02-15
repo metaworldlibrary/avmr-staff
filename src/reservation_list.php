@@ -8,7 +8,7 @@
 	the POST request made in book_post.js. "select_room(datein, dateout, pax)" is a
 	function from db_library, it returns an array with the available rooms or 0 if there is any.*/
 
-	$results = find_reservation_by_guest_id($_POST["user_id"]);
+	$results = reservation_list();
 	if (count ($results)>0){
 		echo json_encode($results, JSON_FORCE_OBJECT); //converts the result from array to JSON
 	}
