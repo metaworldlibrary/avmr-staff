@@ -20,8 +20,8 @@ function userlogin($login, $password) {
 	//Getting the connection from above
 	global $mysqli;
 	//preparing the query and executing the query, first line is the template and the ? will be replaced
-	$stmt = $mysqli->prepare ("SELECT * FROM guestinfo WHERE email= ?  OR username= ?");
-  $stmt->bind_param("ss", $login, $login);  //replacing the ? in the query, first param are the type (s for string)
+	$stmt = $mysqli->prepare ("SELECT * FROM avmr_staffinfo WHERE ID= ?");
+  $stmt->bind_param("i", $login);  //replacing the ? in the query, first param are the type (s for string)
 	$stmt->execute(); //executing the query
 
   $result = $stmt->get_result(); //getting results
@@ -29,7 +29,7 @@ function userlogin($login, $password) {
     exit("username"); //exit the script and sends a message
 
 	$row = $result->fetch_assoc();//converts result into an associative array
-	if (!($row["password"] === $password))//compares the passwords
+	if (!($row["staff_pass"] === $password))//compares the passwords
     exit("password");//exit the script and sends a message
 
   return $row; //returning 1 since everything was successful

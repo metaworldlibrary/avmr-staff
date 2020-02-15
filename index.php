@@ -31,7 +31,6 @@ if(session_id() == ''){
 
     <div class="collapse navbar-collapse justify-content-end text-white" id="navbarNav">
       <b><a id="navbar-sign-in-label"></a></b>
-      <a class="btn btn-primary m-2" href="#" id="navbar-sign-in" data-target="#main-content" data-slide-to="6">Sign in</a>
       <a class="btn btn-success m-2" id="navbar-dashboard" href="#" data-target="#main-content" data-slide-to="6">Dashboard</a>
       <a class="btn btn-outline-primary m-2" id="navbar-sign-out">Sign out</a>
     </div>

@@ -231,7 +231,7 @@ $(document).ready(function () {
 	}
 
 	//user login
-	function user_login(user, pass, redirect, action){
+	function user_login(user, pass, action){
 		$.post("src/login.php", //create a POST request
 		{
 			login_username: user, //sending the variable with the username through POST
@@ -239,7 +239,7 @@ $(document).ready(function () {
 		},
 		function(data){ //If the POST request was successful, this function is executed.
 			if (data == "username") { //checking the data, 0= failed login
-				alert("Username or email not found");
+				alert("ID not found");
 				return;
 			}
 			else if (data=="password"){
@@ -254,16 +254,10 @@ $(document).ready(function () {
 						break;
 					default: //normal login
 						check_session(0);
-						login = obj.email;
-						password = obj.password;
-						guestid = obj.user_id;
+						login = obj.ID;
+						password = obj.staff_pass;
 						fill_confirm_view(obj);
 						fill_dashboard_view(obj);
-						if (redirect!=-1){
-							$('#main-content').carousel(redirect);
-							$("#main-content").carousel({interval: 0});
-							$('#main-content').carousel('pause');
-						}
 				}
 			}
 		});
@@ -350,15 +344,10 @@ $(document).ready(function () {
 		$('#navbar-dashboard').hide();
 		$('#member-area').hide();
 		$('#login-form').show();
-		$('#login-form2').show();
 		$('#navbar-sign-in').show();
 		$('#signup-container').show();
 		$('#signup-or').show();
-		$('#navbar-sign-in-label').text('Already got a reservation? sign in to check:');
-		$('#login-contact-label').text('ALREADY HAVE AN ACCOUNT?')
-		$('#login-contact-label2').text('Please sign in');
-		$('#login_username2').attr("disabled", false);
-		$('#sign-out2').hide();
+		$('#navbar-sign-in-label').text('This section is staff only, please login first');
 	}//logout ui check end
 
 	//fill confirmation data
