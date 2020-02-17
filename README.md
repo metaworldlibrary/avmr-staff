@@ -1,7 +1,6 @@
 # Amazing View Mountain Resort
-website
 
-Company details must be in database
+## Company details must be in database
 - contact #
 - logo
 - address
@@ -11,7 +10,9 @@ Company details must be in database
 - history (anchan note: homepage's descrition)
 - all text that can be modified      
         
-CHANGES	
+# CHANGES	
+
+## General
 - send email after sucessfull reservation
 - send email after successful admin confirmation
 - print reports(open new tab->launch print function)
@@ -29,7 +30,8 @@ CHANGES
 - add person, additional bed
 - disable deletion for reservation with payment*
 
-Check-in, Check-out dates
+
+## Check-in, Check-out dates
 - The date should show up upon clicking the box.
 - Can't book before the present day. (Ex. Today is Feb 17,2020, you
 can't book the dates before Feb. 17,2020.)
@@ -40,7 +42,7 @@ left/right.
 - There should be an option for the guest to order Breakfast/Lunch/Dinner
 before booking a room.
 
-Login Issue
+## Login Issue
 - After creating an account, it should not skip the confirm button like
 last time.
 - Validations should apply on the registration.
@@ -50,30 +52,28 @@ Check-in
 - If the guest paid the 50% downpayment already and checked in, the status
 should be "Checked In" in red font.
 - The guest should be able to reschedule and edit his/her booking.
- 
 
-Billing
+## Billing
 - Every expense should be computed and visible in the 
 receipt. Ex. Pillows, matress, etc.
 - VAT should be visible in the receipt.
 
-Admin Module
+# Admin Module
 
-Check In
+## Check In
 - The system should be able to know how the guest paid for the
 downpayment.
 - The system should be able to add, edit, and delete a room.
 - The system should be able to manage a walk-in guest (Including 
 amenities wanted by the guest).
 
-Admin Module
-Check out
+## Check out
 - Upon checking out, the system should be able to print out a report
 for expenses.
 - When the guest checked out, the status of the room would be Waiting again.
 
-Reservation process
-- Dearch using dates and guest num
+# Reservation process
+- Search using dates and guest num
 - Output room type where it matches from above
 - Create account / login account (when we show this out to the panel, there are cases that it doesnt accept registration and jumps back to the home page)
 - Summary page (this was pointed out to be not of UX friendly)
