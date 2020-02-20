@@ -15,6 +15,20 @@
 	else{
 		echo 0;
 	}
-	//closing database connection
-	$mysqli -> close();
+
+	function reservation_list() {
+		//Getting the connection from above
+		global $mysqli;
+		//preparing the query and executing the query, first line is the template and the ? will be replaced
+		$stmt = $mysqli->prepare ("SELECT * FROM reservationqueue");
+		$stmt->execute(); //executing the query
+
+	  $result = $stmt->get_result(); //getting results
+		if ($result->num_rows === 0) //no results means not registered
+	    exit("no_reservation"); //exit the script and sends a message
+
+	  $row= $result->fetch_all(MYSQLI_ASSOC);
+		$mysqli -> close();//closing database connection
+	  return $row;
+	}
 ?>

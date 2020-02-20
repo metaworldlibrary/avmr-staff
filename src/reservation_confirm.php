@@ -14,6 +14,15 @@
 	else{
 		echo 0;
 	}
-	//closing database connection
-	$mysqli -> close();
+
+	function create_reservation($guest_id, $room_id, $datein, $dateout) {
+		//Getting the connection from above
+		global $mysqli;
+		//preparing the query and executing the query, first line is the template and the ? will be replaced
+		$stmt = $mysqli->prepare ("INSERT INTO reservationqueue (guest_id, room_id, date_in, date_out) VALUES (?,?,?,?)");
+	  $stmt->bind_param("iiss", $guest_id, $room_id, $datein, $dateout);  //replacing the ? in the query, first param are the type (s for string)
+		$stmt->execute(); //executing the query
+		$mysqli -> close();
+	  return 1;
+	}
 ?>

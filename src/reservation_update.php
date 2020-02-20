@@ -14,6 +14,15 @@
 	else{
 		echo 0;
 	}
-	//closing database connection
-	$mysqli -> close();
+
+	function update_reservation($room_id, $datein, $dateout, $reservationID) {
+		//Getting the connection from above
+		global $mysqli;
+		//preparing the query and executing the query, first line is the template and the ? will be replaced
+		$stmt = $mysqli->prepare ("UPDATE reservationqueue SET room_id=?, date_in=?, date_out=? WHERE ID = ?");
+	  $stmt->bind_param("iiss", $room_id, $datein, $dateout, $reservationID);  //replacing the ? in the query, first param are the type (s for string)
+		$stmt->execute(); //executing the query
+		$mysqli -> close();	//closing database connection
+	  return 1;
+	}
 ?>

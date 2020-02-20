@@ -31,7 +31,7 @@ if(session_id() == ''){
 
     <div class="collapse navbar-collapse justify-content-end text-white" id="navbarNav">
       <b><a id="navbar-sign-in-label"></a></b>
-      <a class="btn btn-success m-2" id="navbar-dashboard" href="#" data-target="#main-content" data-slide-to="6">Dashboard</a>
+      <a class="btn btn-success m-2" id="navbar-dashboard-btn" href="#" data-target="#main-content" data-slide-to="6">Dashboard</a>
       <a class="btn btn-outline-primary m-2" id="navbar-sign-out">Sign out</a>
     </div>
   </nav>
@@ -61,6 +61,7 @@ if(session_id() == ''){
       <div id="member-area" class="container-fluid column-center bg-light text-dark">
         <div class="container-fluid">
           <div class="row">
+
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
               <div class="sidebar-sticky">
 
@@ -73,25 +74,25 @@ if(session_id() == ''){
 
                 <ul class="nav flex-column">
                   <li class="nav-item">
-                    <a class="nav-link active mt-2" href="#" id="dashboard-walk-in">
+                    <a class="nav-link active mt-2" href="#" id="nav-walk-in">
                       <span data-feather="file-text"></span>
                       Walk-in <span class="sr-only">(current)</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" id="dashboard-add-room">
+                    <a class="nav-link" href="#" id="nav-add-room">
                       <span data-feather="file-text"></span>
                       Add reservation
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" id="dashboard-edit_room">
+                    <a class="nav-link" href="#" id="nav-edit-room">
                       <span data-feather="file-text"></span>
                       Edit rooms
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" id="dashboard-reports">
+                    <a class="nav-link" href="#" id="nav-reports">
                       <span data-feather="file-text"></span>
                       Reports
                     </a>
@@ -134,30 +135,135 @@ if(session_id() == ''){
 
               <h2 id="dashboard-header">Edit reservations</h2>
 
-              <div class="table-responsive" id="dashboard-walkin-container">
-                <table class="table table-striped table-sm" id="reservation-table">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Room</th>
-                      <th>Guest</th>
-                      <th>No.People</th>
-                      <th>Price</th>
-                      <th>Date-In</th>
-                      <th>Date-out</th>
-                      <th>Status</th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                    <tbody id="reservations-container">
-                      <!--dinamically created table-->
-                    </tbody>
-                </table>
+              <div id="walkin-module-container">
+                <div class="table-responsive" id="reservation-list-container">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Room</th>
+                        <th>Guest</th>
+                        <th>No.People</th>
+                        <th>Price</th>
+                        <th>Date-In</th>
+                        <th>Date-out</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                      <tbody id="reservation-list-content">
+                        <!--dinamically created table-->
+                      </tbody>
+                  </table>
+                </div>
+
+                <div id=edit-reservation-form-container>
+                  <form class="form-horizontal">
+                    <label class="mt-3 h6 font-weight-bold">Room type.</label>
+                    <div class="form-inline">
+                      <input type="hidden" id="walkin-res-id" name="hd-res-id">
+                      <input class="form-control w-50" type="text" id="walking-res-roomtype">
+                      <a class="btn btn-primary w-25 mx-3 text-white" id="walkin-select-res-btn">Select room</a>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Room number.</label>
+                      <input class="form-control" type="text" id="walkin-res-roomnum"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">First Name.</label>
+                      <input class="form-control" type="text" id="walkin-res-firstname"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Last Name.</label>
+                      <input class="form-control" type="text-area" id="walkin-res-lastname"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">No.People.</label>
+                      <input class="form-control" type="text" id="walkin-res-numpeople"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Price.</label>
+                      <input class="form-control" type="text" id="walkin-res-price"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Date-in.</label>
+                      <input class="form-control" type="date" id="walkin-res-datein"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Date-out.</label>
+                      <input class="form-control" type="Date" id="walkin-res-dateout"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Status.</label>
+                      <select class="form-control" name="db-available-room" id="walkin-res-status">
+                        <option value="1">Not available</option>
+                        <option value="0">Available</option>
+                      </select>
+                    </div>
+                    <a class="btn btn-success my-3 text-white" id="walking-res-update-btn">Update room.</a>
+                  </form>
+                </div>
               </div>
 
-              <div class="table-responsive" id="dashboard-billing-container">
-                <table class="table table-striped table-sm" id="billing-table">
+              <div id="edit-module-container">
+                <div class="table-responsive" id = "edit-roomlist-container">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Room</th>
+                        <th>Accomodations</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                      <tbody id="edit-roomlist-content">
+                        <!--dinamically created table SELECT room_name, room_accommodation_num, room_num, COUNT(room_name) as total, price from accommodationinfo where status=0 GROUP by room_num, room_name ORDER BY ID, room_accommodation_num -->
+                      </tbody>
+                  </table>
+                </div>
+
+                <div class="col-md-5 container-fluid h-100" id="edit-room-form-container">
+                  <form class="form-horizontal">
+                    <label class="mt-3 h6 font-weight-bold">Room type.</label>
+                    <div class="form-inline">
+                      <input type="hidden" id="dashboard-room-id" name="hd-room-vqid">
+                      <input class="form-control w-50" type="text" id="dashboard-room-type">
+                      <a class="btn btn-primary w-25 mx-3 text-white" id="select-room-btn">Select room</a>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Accomodations.</label>
+                      <input class="form-control" type="text" id="dashboard-num-people"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Price.</label>
+                      <input class="form-control" type="text" id="dashboard-room-price"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Description.</label>
+                      <input class="form-control" type="text-area" id="dashboard-room-desc"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Room number.</label>
+                      <input class="form-control" type="text" id="dashboard-room-num"></input>
+                    </div>
+                    <div class="form-horizontal">
+                      <label class="mt-3 h6 font-weight-bold">Availability.</label>
+                      <select class="form-control" name="db-available-room" id="dashboard-room-status">
+                        <option value="1">Not available</option>
+                        <option value="0">Available</option>
+                      </select>
+                    </div>
+                    <a class="btn btn-success my-3 text-white" id="room-update-btn">Update room.</a>
+                  </form>
+                </div>
+              </div>
+
+              <div class="table-responsive" id="billing-container">
+                <table class="table table-striped table-sm">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -167,39 +273,10 @@ if(session_id() == ''){
                       <th>Total</th>
                     </tr>
                   </thead>
-                    <tbody id="billing-container">
+                    <tbody id="billing-table-container">
                       <!--dinamically created table-->
                     </tbody>
                 </table>
-              </div>
-
-              <div id="dashboard-add-reservation-container">
-                <div class="col-md-5 container-fluid h-100">
-                  <form class="form-horizontal">
-                    <div class="form-horizontal">
-                      <label class="mt-3 h6 font-weight-bold">Room type.</label>
-                      <input class="form-control" type="hidden" id="dashboard-room-id">
-                      <input class="form-control" type="text" id="dashboard-room-type">
-                    </div>
-                    <div class="form-horizontal">
-                      <label class="mt-3 h6 font-weight-bold">Max. number of people.</label>
-                      <input class="form-control" type="text" id="dashboard-num-people"></input>
-                    </div>
-                    <div class="form-horizontal">
-                      <label class="mt-3 h6 font-weight-bold">Price.</label>
-                      <input class="form-control" type="text" id="dashboard-room-price"></input>
-                    </div>
-                    <div class="form-horizontal">
-                      <label class="mt-3 h6 font-weight-bold">Description.</label>
-                      <input class="form-control" type="text" id="dashboard-room-desc"></input>
-                    </div>
-                    <div class="form-horizontal">
-                      <label class="mt-3 h6 font-weight-bold">Room number.</label>
-                      <input class="form-control" type="text" id="dashboard-room-num"></input>
-                    </div>
-                    <a class="btn btn-primary my-3 text-white" id="dashboard-info-update">Update room.</a>
-                  </form>
-                </div>
               </div>
 
           </main>
@@ -208,7 +285,7 @@ if(session_id() == ''){
     </div>
       <!--/Members area-->
   </div>
-  <!--Content-->
+  <!--Content SELECT room_name, room_num, COUNT(room_name) as total, price from accommodationinfo where status=0 GROUP by room_num, room_name ORDER BY ID-->
 
   <!--Footer-->
   <div class="container-fluid bg-dark sticky-bottom">
