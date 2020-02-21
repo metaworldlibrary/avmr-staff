@@ -106,9 +106,32 @@ $(document).ready(function () {
 				$('#reservation-list-content').empty();
 				var obj = jQuery.parseJSON(data);
 				$.each(obj, function(key, value) {
-					var status;
-					if (value.status==1) status="Approved";
-					else status = "Waiting";
+					var status,cbuttons;
+					if (value.status==1) {
+						status="Approved";
+						cbuttons =`
+						<td><button class="checkin-reservation btn btn-lg btn-primary btn-block" type="button">Check-in</button></td>
+						<td><button class="edit-reservation btn btn-lg btn-primary btn-block" type="button">Edit</button></td>
+						<td><button class="del-reservation btn btn-lg btn-danger btn-block" type="button">Cancel</button></td>`;
+					}
+					if (value.status==2) {
+						status="Check-in";
+						cbuttons =`
+						<td><button class="checkout-reservation btn btn-lg btn-primary btn-block" type="button">Check-out</button></td>
+						<td><button class="edit-reservation btn btn-lg btn-primary btn-block" type="button">Edit</button></td>
+						<td><button class="del-reservation btn btn-lg btn-danger btn-block" type="button">Cancel</button></td>`;
+					}
+					if (value.status==3) {
+						status="Complete Reservation";
+						cbuttons =``;
+					}
+					else{
+						status = "Waiting";
+						cbuttons = `
+						<td><button class="confirm-reservation btn btn-lg btn-primary btn-block" type="button">Confirm Reservation</button></td>
+						<td><button class="edit-reservation btn btn-lg btn-primary btn-block" type="button">Edit</button></td>
+						<td><button class="del-reservation btn btn-lg btn-danger btn-block" type="button">Cancel</button></td>`;
+					}
 					$('#reservation-list-content').append(`
 					<tr>
 						<td id="">`+ value.ID + `</td>
@@ -119,8 +142,7 @@ $(document).ready(function () {
 						<td>`+ value.date_in + `</td>
 						<td>`+ value.date_out + `</td>
 						<td>`+ status + `</td>
-						<td><button class="edit-reservation btn btn-lg btn-primary btn-block" type="button">Edit</button></td>
-						<td><button class="del-reservation btn btn-lg btn-danger btn-block" type="button">Cancel</button></td>
+						`+cbuttons+`
 					</tr>`);
 					find_room_by_id(value.room_id, 2, key);
 					find_user_by_id(value.guest_id, 1, key);
