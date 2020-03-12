@@ -76,25 +76,51 @@ if(session_id() == ''){
                   <li class="nav-item">
                     <a class="nav-link active mt-2" href="#" id="nav-walk-in">
                       <span data-feather="file-text"></span>
-                      Walk-in <span class="sr-only">(current)</span>
+                      Manage Reservations <span class="sr-only">(current)</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#" id="nav-add-room">
                       <span data-feather="file-text"></span>
-                      Add reservation
+                      Add Walk-in Reservation
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-add-room">
+                      <span data-feather="file-text"></span>
+                      Proof of Payments
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-add-room">
+                      <span data-feather="file-text"></span>
+                      Checked-in Guest
+                    </a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-reports">
+                      <span data-feather="file-text"></span>
+                      Reports
+                    </a>
+                  </li>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                  <span>Room Management</span>
+                  <a class="d-flex align-items-center text-muted" href="#">
+                    <span data-feather="plus-circle"></span>
+                  </a>
+                </h6>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-edit-room">
+                      <span data-feather="file-text"></span>
+                      Room List
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#" id="nav-edit-room">
                       <span data-feather="file-text"></span>
-                      Edit rooms
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#" id="nav-reports">
-                      <span data-feather="file-text"></span>
-                      Reports
+                      Add Room
                     </a>
                   </li>
                   <li class="nav-item">
